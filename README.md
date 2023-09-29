@@ -1,4 +1,6 @@
 # CNMT101-Files
 Repo for my CNMT code files
 
-Hey TIM, THIS IS THE Github TEXT EDITOR
+## Header2
+### Header3
+###### Hey Tim, you're on a Header6!
