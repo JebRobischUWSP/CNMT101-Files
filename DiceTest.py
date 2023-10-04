@@ -1,24 +1,33 @@
 import math
 import random
 
-def rollDie(minInt, maxInt, weight, weightPower, weightSpread)
+def rollDie(minInt, maxInt, weightValue, weightBase, weightPower):
     try: # Make sure all arguments are valid
         int(minInt)
         int(maxInt)
-        if weight:
-            float(weight)
+        if weightValue:
+            float(weightValue)
+            float(weightBase)
             float(weightPower)
-            float(weightSpread)
     except:
         return None
-    if not wieght:
+    if not weightValue:
         return random.randrange(minInt, maxInt)
-    elif weight >= minInt and weight <= maxInt and weightPower >= 1:
-        result = weight
-        distort = math.log(random.uniform(2**
+    elif weightValue >= minInt and weightValue <= maxInt and weightBase > 1 and weightBase <= 10 and weightPower > 0 and weightPower <= 50:
+        distort = math.log(random.uniform(1, weightBase**weightPower), weightBase) / weightPower
+        if random.randint(0,1) == 1:
+            return maxInt - round((maxInt - weightValue) * distort)
+        else:
+            return minInt + round((weightValue - minInt) * distort)
     else:
         return None
 
-dTwenty = 0
-dTwenty = math.ceil(random.random() * 20)
-print(dTwenty)
+rollTotal = 0
+for i in range(10000):
+    diceRoll = rollDie(1, 20, 4, 3, 2)
+    rollTotal += diceRoll
+    if i % 100 == 0:
+        print(diceRoll)
+
+print(rollTotal)
+print(rollTotal / 10000)
