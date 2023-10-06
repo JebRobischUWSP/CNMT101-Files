@@ -1,18 +1,18 @@
 import math
 import random
 
-def rollDie(minInt, maxInt, weightValue, weightBase, weightPower):
+def rollDie(minInt, maxInt, weightValue = None, weightBase = None, weightPower = None):
     try: # Make sure all arguments are valid
-        int(minInt)
-        int(maxInt)
+        minInt = int(minInt)
+        maxInt = int(maxInt)
         if weightValue:
-            float(weightValue)
-            float(weightBase)
-            float(weightPower)
+            weightValue = float(weightValue)
+            weightBase = float(weightBase)
+            weightPower = float(weightPower)
     except:
         return None
     if not weightValue:
-        return random.randrange(minInt, maxInt)
+        return random.randint(minInt, maxInt)
     elif weightValue >= minInt and weightValue <= maxInt and weightBase > 1 and weightBase <= 10 and weightPower > 0 and weightPower <= 50:
         distort = math.log(random.uniform(1, weightBase**weightPower), weightBase) / weightPower
         if random.randint(0,1) == 1:
@@ -22,12 +22,20 @@ def rollDie(minInt, maxInt, weightValue, weightBase, weightPower):
     else:
         return None
 
-rollTotal = 0
-for i in range(10000):
-    diceRoll = rollDie(1, 20, 4, 3, 2)
-    rollTotal += diceRoll
-    if i % 100 == 0:
-        print(diceRoll)
+def roll20Set(dieAmount):
+    for rolls in range(dieAmount):
+        rollResult = rollDie(1, 20)
+        addedText = ''
+        if rollResult == 20:
+            addedText = ' >>>         Crit Success!'
+        elif rollResult == 1:
+            addedText = ' >>>         Crit Fail!'
+        elif rollResult >= 11:
+            addedText = ' - Good Roll'
+        else:
+            addedText = ' -  Bad Roll'
+        print(str(rollResult).rjust(2) + addedText)
+    print('\n== - Dice rolled! - ==\n')
 
-print(rollTotal)
-print(rollTotal / 10000)
+roll20Set(20)
+roll20Set(5)
