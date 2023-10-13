@@ -2,7 +2,34 @@
 #import math
 import random
 
+print('Welcome to diceRoll! Would you like to roll some dice? (Y/N)')
+userIn = input('> ')
+if userIn = 'y':
+    print('How many sides do you want per die?')
+    sides = input('> ') # Get sides per die
+    print('...and how many dice do you want to roll?')
+    dice = input('> ') # Get amount of dice
+    if int(sides) and sides >= 2 and int(dice) and dice >= 1: # Integer check (and minimum value check)
+        if sides == 20: #Duplicate for loop for d20s to remove 1 operation per roll (checking side count)
+            for i in range(dice):
+                result = random.randint(1, sides) # Roll d20s
+                print('#' + i + ' - ' + result) # Output result
+                if result == 20:
+                    print('  Critical Hit!') # Check & output Crit
+                elif result == 1:
+                    print('  Critical Fail!') # Check & output Fail
+        else:
+            for i in range(dice):
+                result = random.randint(1, sides) # Roll normal dice
+                print('#' + i + ' - ' + result) # Output result
+
+
+# Sources include PythonDocs (random library) and realpython.com for int()
+
 """
+Whoops, ignore me!
+
+
 while (True):
     _ = os.system('cls') # Not nessecary, clears terminal
     print("Welcome to diceRoll! Would you like to roll some dice? (Y/N)")
@@ -55,16 +82,5 @@ while (True):
     
 # Souce: Documentation Lookup on W3Schools (mainly math library & right adjust)
 """
-print('Welcome to diceRoll! Would you like to roll some dice? (Y/N)')
-userIn = input('> ')
-if userIn = 'y':
-    print('How many sides do you want per die?')
-    sides = input('> ')
-    print('...and how many dice do you want to roll?')
-    dice = input('> ')
-    if int(sides) and sides >= 2 and int(dice) and dice >= 1:
-        
 
-
-
-    
+# https://github.com/JebRobischUWSP/CNMT101-Files
