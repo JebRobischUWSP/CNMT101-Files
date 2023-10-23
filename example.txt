@@ -1,0 +1,10 @@
+This is an example
+
+Wowza!
+
+Truth info:
+any number != 0 is true
+None is false
+All strings with length > 0 are true, length value evaluated rather than string
+True is True
+False is False

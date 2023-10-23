@@ -1,0 +1,1 @@
+Number result: 28
