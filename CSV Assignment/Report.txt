@@ -1,0 +1,56 @@
+I have no idea why it's split like this in a way that points from previous steps have to be recorded long after performing & submitting those steps, so I'll just submit everything for each in each version and you can just ignore everything that shouldn't be here :)
+
+Version 1:
+-CHANGELOG-
+> Program closes on failed file read
+> Program actually works
+> Amount of classes prints after file read
+> Class name and details are now printed as they're calculated
+Other notes:
+  Intern did correctly implement opening, reading, and closing the file.
+ GPA calculation 
+
+Version 2:
+NOT HERE! SEE SUBMITTED WORD DOC
+
+Version 3:
+-ISSUE & BUG REPORT-
+> gradeLength incorrectly removes 2 lines (should remove 1, just the header line)
+> Though all other file read parameters are saisfied, program doesn't close if the file doesn't exist. Resolved by imorting the sys library and calling exit.
+> Not inherently a changed issue, but storing letter grade variables as a tuple instead of a dictionary is a real headache. Heck, it's even a tuple instead of a list. Why???
+> The compared string for a C grade was 'c' instead of 'C', causing no match to be found.
+> Using finalGPA as a seperate argument after adding a space in the final GPA text causes a double space, changed to a concantenation.
+> Removed the linebreak from the class names to allow them to print properly
+> Program couldn't handle bad values for letter grade or credits, can now. Warns user in case of bad line.
+> Calculation loop enirely overhauled (Previous very inefficient) 
+
+-TEST LOG-
+#1 Lower-Case Grade: (CSV ENTRY: 4, b-, ART 251)
+  Traceback (most recent call last):
+    File "C:\Users\jrobi774\Downloads\CSV Assignment\gpaFinalTest.py", line 40, in <module>
+      if  individualClass[1] == gpaList[gpaCheck]:
+                              ~~~~~~~^^^^^^^^^^
+  IndexError: tuple index out of range
+
+  Errored as expected, didn't match any strings in gpaList due to capitalization
+#2 Non-float or integer as credits: (CSV ENTRY: Foo, B-, ART 251)
+  Traceback (most recent call last):
+    File "C:\Users\jrobi774\Downloads\CSV Assignment\gpaFinalTest.py", line 42, in <module>
+      cumulativeGPA = cumulativeGPA + gpaList[gpaCheck+1] * int(individualClass[0])
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^
+  ValueError: invalid literal for int() with base 10: 'Foo'
+
+  Errored roughly as expected, wasn't able to parse an int from a string that isn't an int.
+#3 Additional header: (CSV ENTRY: Credits, Grade, Class)
+  Causes tuple index out of range, as per #1.
+  (CSV ENTRY: Credits, A, Class)
+  Causes invalid literal for int(), as per #2.
+  (CSV ENTRY: 1, A, Class)
+  Proceeds, class name not enforced.
+
+All tests completed as predicted.
+
+Suggested improvements:
+> "Grade table" as dictionary instead of tuple (Current implementation is very primitive)
+> Usage of for loop in lieu of main while loop (while loop nested inside invalidated by dictionary), would make more sense since python favors list iteration over numerical iteration.
+> CSV file reading improvement & format enforcement AND forgiveness: Recognizes and discards headers, credits will throw prompt to user if (1. it's a float, choice to floor, ceil, discard, or exit; 2. it's unparseable, choice to discard or exit), grade will throw prompt to user if not an available enry in grade dict, prompting discarding or exit. Class recognizes the following format: \[a-zA-Z]{3,5}[[:blank:]]?[0-9]{3}\, and will prompt continue, discard, or exit if it doesn't follow such. Grade also recognizes any case, via forcing it to uppercase.
